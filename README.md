@@ -4,8 +4,8 @@ Crypto bot with DCA or GRID trading strategy
 
 ## Prerequisites
 
-Docker
-Exchange API Keys
+- Docker
+- Exchange API Keys
 
 ## Exchanges
 
