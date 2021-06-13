@@ -1,6 +1,8 @@
 # crypto-grid-trading
 
-Crypto bot with DCA or GRID trading strategy
+- Crypto bot with DCA or GRID trading strategy
+- **** Note ****
+- Please test against exchange sandbox environment if its supported
 
 ## Prerequisites
 
