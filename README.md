@@ -1,8 +1,11 @@
 # crypto-grid-trading
 
-- Crypto bot with DCA or GRID trading strategy
-- **** Note ****
-- Please test against exchange sandbox environment if its supported
+Crypto bot with DCA or GRID trading strategy
+
+## Important Notes:
+- Please test this against exchange sandbox environment if sandbox environment is supported.
+- Tested on Linux and Mac Environment
+- Tested against Coinbasepro and Gemini Exchanges
 
 ## Prerequisites
 
@@ -52,3 +55,9 @@ docker-compose up
 
 - Navigate to http://localhost/
 - Click on "Place A Trade" and place a trade order
+
+## Monitor 
+- To monitor orders, run 
+```sh
+docker logs monitor
+```
