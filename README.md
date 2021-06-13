@@ -33,7 +33,7 @@ export exchange_env=test # Start with test and later move to prod when comfortab
 
 ```sh
 cd crypto-bot-trading
-./deploy.sh
+docker-compose up
 ```
 
 ## Testing
