@@ -1,0 +1,77 @@
+version: "3"
+services:
+  api:
+    build:
+      context: bot-api
+      dockerfile: APIDockerfile
+    container_name: api
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    links:
+      - mongodb
+    environment:
+      EXCHANGE_KEY: ${exchange_key}
+      EXCHANGE_SECRET: ${exchange_secret}
+      EXCHANGE_PASSWORD: ${exchange_password}
+      EXCHANGE_NAME: ${exchange_name}
+      EXCHANGE_ENV: ${exchange_env}
+      LOG_LEVEL: "INFO"
+      APP_PORT: 80
+      MONGODB_DATABASE: crypto
+      MONGODB_USERNAME: rootuser
+      MONGODB_PASSWORD: password123
+      MONGODB_HOSTNAME: mongodb
+    depends_on:
+      - mongodb
+
+  ui:
+    build:
+      context: bot-ui
+      dockerfile: UIDockerfile
+    container_name: ui
+    restart: unless-stopped
+    ports:
+      - "80:80"
+
+  monitor:
+    build:
+      context: bot-api
+      dockerfile: MonitorDockerfile
+    container_name: monitor
+    restart: unless-stopped
+    links:
+      - mongodb
+    environment:
+      EXCHANGE_KEY: ${exchange_key}
+      EXCHANGE_SECRET: ${exchange_secret}
+      EXCHANGE_PASSWORD: ${exchange_password}
+      EXCHANGE_NAME: ${exchange_name}
+      EXCHANGE_ENV: ${exchange_env}
+      LOG_LEVEL: "INFO"
+      MONGODB_DATABASE: crypto
+      MONGODB_USERNAME: rootuser
+      MONGODB_PASSWORD: password123
+      MONGODB_HOSTNAME: mongodb
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:4.0.8
+    container_name: mongodb
+    restart: unless-stopped
+    command: mongod --auth
+    ports:
+      - "27020:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: rootuser
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: crypto
+      MONGODB_DATA_DIR: /data/db
+      MONDODB_LOG_DIR: /dev/null
+    volumes:
+      - mongodbdata:/data/db
+
+volumes:
+  mongodbdata:
+    driver: local
