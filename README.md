@@ -2,6 +2,11 @@
 
 Crypto bot with DCA or GRID trading strategy
 
+## Important Notes:
+- Please test this against exchange sandbox environment if sandbox environment is supported.
+- Tested on Linux and Mac Environment
+- Tested against Coinbasepro and Gemini Exchanges
+
 ## Prerequisites
 
 - Docker
@@ -20,6 +25,7 @@ git clone https://github.com/tradingalgobots/crypto-bot-trading
 ## Setup
 
 Create exchange environment varibles in Mac/Linux OS
+
 ```sh
 export exchange_key=changethis # change this to exchange api key
 export exchange_secret=changethis # change this to exchange api secret
@@ -29,13 +35,15 @@ export exchange_env=test # Start with test and later move to prod when comfortab
 ```
 
 Create exchange environment varibles in Windows OS
-```ps
+
+```sh
 setx exchange_key "changethis" # change this to exchange api key
 setx exchange_secret "changethis" # change this to exchange api secret
 setx exchange_password "changethis" # change this to exchange api password. Only some exchanges require this.
 setx exchange_name "coinbasepro" # change this to exchange name
 setx exchange_env "test" # Start with test and later move to prod when comfortable
 ```
+
 ## Running Program
 
 ```sh
@@ -47,3 +55,9 @@ docker-compose up
 
 - Navigate to http://localhost/
 - Click on "Place A Trade" and place a trade order
+
+## Monitor 
+- To monitor orders, run 
+```sh
+docker logs monitor
+```

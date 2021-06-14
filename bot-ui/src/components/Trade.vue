@@ -72,6 +72,14 @@
     </form>
     <div class="row justify-content-md-center mt-2">
       <label
+        v-if="errorText.length > 0"
+        for="errorText"
+        class="primary"
+        style="color: red"
+      >Error from api: {{ errorText }}</label>
+    </div>
+    <div class="row justify-content-md-center mt-2">
+      <label
         v-if="ordersList.length > 0"
         for="ordersListText"
         class="primary"
@@ -103,6 +111,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "trade",
   data() {
@@ -120,7 +129,8 @@ export default {
       profit: null,
       side: null,
       diff: null,
-      strategy: null
+      strategy: null,
+      errorText: ""
     };
   },
   mounted: async function() {
@@ -130,48 +140,38 @@ export default {
     getProducts: async function() {
       this.loading = true;
       this.productsList = [];
-      const response = await fetch(`http://localhost:8080/products`, {
-        method: "GET"
-      })
+      axios
+        .get("http://localhost:8080/products")
         .then(response => {
-          return response.json();
+          console.log(response);
+          for (let index = 0; index < response.data.length; index++) {
+            this.productsList.push(response.data[index]);
+          }
+          this.loading = false;
         })
         .catch(error => {
-          // Your error is here!
-          console.log(error);
-          this.$router.push({ path: "/error" });
+          console.log("error:", error.response.data.message);
+          this.errorText = error.response.data.message;
         });
-
-      for (let index = 0; index < response.length; index++) {
-        this.productsList.push(response[index]);
-      }
-      this.loading = false;
     },
     getQuote: async function(event) {
-      const data = {
+      const data = JSON.stringify({
         symbol: event.target.value
-      };
+      });
       console.log(data);
-      const response = await fetch(`http://localhost:8080/quote`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: new Headers({
-          "content-type": "application/json"
-        })
-      })
+      axios
+        .post("http://localhost:8080/quote", data)
         .then(response => {
-          return response.json();
+          console.log(response);
+          this.currentPrice = response.data.last;
         })
         .catch(error => {
-          // Your error is here!
-          console.log(error);
-          this.$router.push({ path: "/error" });
+          console.log("error:", error.response.data.message);
+          this.errorText = error.response.data.message;
         });
-      console.log(response);
-      this.currentPrice = response.last;
     },
     onSubmit: async function() {
-      const data = {
+      const data = JSON.stringify({
         symbol: this.product,
         price: this.price,
         side: this.side,
@@ -180,25 +180,19 @@ export default {
         size: this.size,
         diff: this.diff,
         strategy: this.strategy
-      };
+      });
       console.log(data);
-      const response = await fetch(`http://localhost:8080/order`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: new Headers({
-          "content-type": "application/json"
-        })
-      })
+      axios
+        .post("http://localhost:8080/order", data)
         .then(response => {
-          return response.json();
+          console.log(response);
+          this.ordersList = response.data;
         })
         .catch(error => {
-          // Your error is here!
-          console.log(error);
-          this.$router.push({ path: "/error" });
+          console.log("error:", error.response.data.message);
+          this.errorText = error.response.data.message;
+          this.ordersList = [];
         });
-      console.log(response);
-      this.ordersList = response;
     }
   }
 };
