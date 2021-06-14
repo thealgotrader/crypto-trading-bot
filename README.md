@@ -3,6 +3,7 @@
 Crypto bot with DCA or GRID trading strategy
 
 ## Important Notes:
+
 - Please test this against exchange sandbox environment if sandbox environment is supported.
 - Tested on Linux and Mac Environment
 - Tested against Coinbasepro and Gemini Exchanges
@@ -24,24 +25,16 @@ git clone https://github.com/tradingalgobots/crypto-bot-trading
 
 ## Setup
 
-Create exchange environment varibles in Mac/Linux OS
+Create exchange environment varibles
 
 ```sh
-export exchange_key=changethis # change this to exchange api key
-export exchange_secret=changethis # change this to exchange api secret
-export exchange_password=changethis # change this to exchange api password. Only some exchanges require this.
-export exchange_name=coinbasepro # change this to exchange name
-export exchange_env=test # Start with test and later move to prod when comfortable
-```
-
-Create exchange environment varibles in Windows OS
-
-```sh
-setx exchange_key "changethis" # change this to exchange api key
-setx exchange_secret "changethis" # change this to exchange api secret
-setx exchange_password "changethis" # change this to exchange api password. Only some exchanges require this.
-setx exchange_name "coinbasepro" # change this to exchange name
-setx exchange_env "test" # Start with test and later move to prod when comfortable
+export EXCHANGE_KEY=changethis # change this to exchange api key
+export EXCHANGE_SECRET=changethis # change this to exchange api secret
+export EXCHANGE_PASSWORD=changethis # change this to exchange api password. Only some exchanges require this.
+export EXCHANGE_NAME=coinbasepro # change this to exchange name
+export EXCHANGE_ENV=test # Start with test and later move to prod when comfortable
+export MONGODB_USERNAME=rootuser123 # change this
+export MONGODB_PASSWORD=password123 # change this
 ```
 
 ## Running Program
@@ -56,8 +49,16 @@ docker-compose up
 - Navigate to http://localhost/
 - Click on "Place A Trade" and place a trade order
 
-## Monitor 
-- To monitor orders, run 
+## Monitor
+
+- To monitor orders, run
+
 ```sh
 docker logs monitor
 ```
+
+## Disclaimer
+
+These strategies are for educational purposes only. Do not risk money which you are afraid to lose. USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS AND ALL AFFILIATES ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.
+
+Always start by testing strategies with a backtesting then run the trading bot in Dry-run. Do not engage money before you understand how it works and what profit/loss you should expect.

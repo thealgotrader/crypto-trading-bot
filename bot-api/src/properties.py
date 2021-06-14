@@ -6,7 +6,7 @@ import motor.motor_asyncio
 logger.addHandler(logging.StreamHandler())
 logger.setLevel(os.environ["LOG_LEVEL"])
 mongo_client = motor.motor_asyncio.AsyncIOMotorClient(
-    "mongodb://rootuser:password123@mongodb:27017/admin"
+    f"mongodb://{os.environ['MONGODB_USERNAME']}:{os.environ['MONGODB_PASSWORD']}@mongodb:27017/admin"
 )
 crypto_db = mongo_client.crypto
 trading_collection = crypto_db.trading
