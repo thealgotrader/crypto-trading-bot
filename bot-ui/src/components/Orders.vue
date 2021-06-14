@@ -51,10 +51,7 @@ export default {
     };
   },
   mounted: async function() {
-    this.interval = setInterval(() => {
-      console.log("getting data from server");
-      this.getOrders();
-    }, 30000);
+    this.getOrders();
   },
   methods: {
     getOrders: async function() {

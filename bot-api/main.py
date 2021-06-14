@@ -2,7 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src import orders_router, info_router
 
-app = FastAPI()
+app = FastAPI(
+    title="Crypto trading bot",
+    description="Automated trading bot for GRID and DCA Strategies",
+    version="0.0.1",
+)
 
 origins = [
     "http://localhost",
