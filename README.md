@@ -15,7 +15,7 @@ Crypto bot with DCA or GRID trading strategy
 
 ## Exchanges
 
-- Support all the exchanges supported by https://github.com/ccxt/ccxt
+- Support's all the exchanges supported by https://github.com/ccxt/ccxt
 
 ## Installation
 
