@@ -1,5 +1,4 @@
-# crypto-grid-trading
-
+# crypto-trading-bot
 Crypto bot with DCA or GRID trading strategy
 
 ## Disclaimer
