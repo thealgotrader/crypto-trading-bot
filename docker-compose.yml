@@ -11,11 +11,11 @@ services:
     links:
       - mongodb
     environment:
-      EXCHANGE_KEY: ${exchange_key}
-      EXCHANGE_SECRET: ${exchange_secret}
-      EXCHANGE_PASSWORD: ${exchange_password}
-      EXCHANGE_NAME: ${exchange_name}
-      EXCHANGE_ENV: ${exchange_env}
+      EXCHANGE_KEY: ${EXCHANGE_KEY}
+      EXCHANGE_SECRET: ${EXCHANGE_SECRET}
+      EXCHANGE_PASSWORD: ${EXCHANGE_PASSWORD}
+      EXCHANGE_NAME: ${EXCHANGE_NAME}
+      EXCHANGE_ENV: ${EXCHANGE_ENV}
       LOG_LEVEL: "INFO"
       APP_PORT: 80
       MONGODB_DATABASE: crypto
@@ -43,11 +43,11 @@ services:
     links:
       - mongodb
     environment:
-      EXCHANGE_KEY: ${exchange_key}
-      EXCHANGE_SECRET: ${exchange_secret}
-      EXCHANGE_PASSWORD: ${exchange_password}
-      EXCHANGE_NAME: ${exchange_name}
-      EXCHANGE_ENV: ${exchange_env}
+      EXCHANGE_KEY: ${EXCHANGE_KEY}
+      EXCHANGE_SECRET: ${EXCHANGE_SECRET}
+      EXCHANGE_PASSWORD: ${EXCHANGE_PASSWORD}
+      EXCHANGE_NAME: ${EXCHANGE_NAME}
+      EXCHANGE_ENV: ${EXCHANGE_ENV}
       LOG_LEVEL: "INFO"
       MONGODB_DATABASE: crypto
       MONGODB_USERNAME: rootuser

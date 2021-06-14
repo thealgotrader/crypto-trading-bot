@@ -46,11 +46,15 @@ export default {
       ordersList: [],
       exchangesList: [],
       exchange: null,
-      errorText: ""
+      errorText: "",
+      connection: null
     };
   },
   mounted: async function() {
-    this.getOrders();
+    this.interval = setInterval(() => {
+      console.log("getting data from server");
+      this.getOrders();
+    }, 30000);
   },
   methods: {
     getOrders: async function() {
