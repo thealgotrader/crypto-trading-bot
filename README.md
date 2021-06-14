@@ -46,12 +46,15 @@ docker-compose up
 
 ## Testing
 
-- Navigate to http://localhost/
-- Click on "Place A Trade" and place a trade order
+- Check https://github.com/tradingalgobots/crypto-bot-trading/wiki/DCA-Trade for placing DCA Trade
+- Check https://github.com/tradingalgobots/crypto-bot-trading/wiki/GRID-Trade for placing GRID Trade
 
 ## Monitor
+- Click Open Orders via ui 
 
-- To monitor orders, run
+or
+
+- To monitor orders via cli, run
 
 ```sh
 docker logs monitor
