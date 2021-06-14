@@ -2,6 +2,14 @@
 
 Crypto bot with DCA or GRID trading strategy
 
+## Disclaimer
+
+This trading bot is still in early stages of development. Please test with sandbox/paper trading accounts before using live account.
+
+These strategies are for educational purposes only. Do not risk money which you are afraid to lose. USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS AND ALL AFFILIATES ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.
+
+Always start by testing strategies with a backtesting then run the trading bot in Dry-run. Do not engage money before you understand how it works and what profit/loss you should expect.
+
 ## Important Notes:
 
 - Please test this against exchange sandbox environment if sandbox environment is supported.
@@ -59,9 +67,6 @@ or
 ```sh
 docker logs monitor
 ```
+## Issues
+Report to contact@algobots.net
 
-## Disclaimer
-
-These strategies are for educational purposes only. Do not risk money which you are afraid to lose. USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS AND ALL AFFILIATES ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.
-
-Always start by testing strategies with a backtesting then run the trading bot in Dry-run. Do not engage money before you understand how it works and what profit/loss you should expect.
