@@ -1,5 +1,13 @@
 <template>
   <main class="container mt-5">
+    <div class="row justify-content-md-center mt-2">
+      <label
+        v-if="errorText.length > 0"
+        for="errorText"
+        class="primary"
+        style="color: red"
+      >Error from api: {{ errorText }}</label>
+    </div>
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -30,13 +38,15 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "orders",
   data() {
     return {
       ordersList: [],
       exchangesList: [],
-      exchange: null
+      exchange: null,
+      errorText: ""
     };
   },
   mounted: async function() {
@@ -44,37 +54,30 @@ export default {
   },
   methods: {
     getOrders: async function() {
-      const response = await fetch(`http://localhost:8080/orders`, {
-        method: "GET"
-      })
+      axios
+        .get("http://localhost:8080/orders")
         .then(response => {
-          return response.json();
+          console.log(response);
+          this.ordersList = response.data;
         })
         .catch(error => {
-          // Your error is here!
-          console.log(error);
-          this.$router.push({ path: "/error" });
+          console.log("error:", error.response.data.message);
+          this.errorText = error.response.data.message;
         });
-      this.ordersList = response;
     },
     cancelOrder: async function(orderId, idType) {
       console.log("orderId:", orderId);
-      await fetch(`http://localhost:8080/order/${orderId}/${idType}`, {
-        method: "DELETE",
-        headers: new Headers({
-          "content-type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        })
-      })
+      console.log("idType:", idType);
+      axios
+        .delete(`http://localhost:8080/order/${orderId}/${idType}`)
         .then(response => {
-          return response.json();
+          console.log(response);
+          this.getOrders();
         })
         .catch(error => {
-          // Your error is here!
-          console.log(error);
-          this.$router.push({ path: "/error" });
+          console.log("error:", error.response.data.message);
+          this.errorText = error.response.data.message;
         });
-      this.getOrders();
     }
   }
 };
