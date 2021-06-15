@@ -8,6 +8,8 @@
         style="color: red"
       >Error from api: {{ errorText }}</label>
     </div>
+    <loading :active.sync="isLoading" :is-full-page="fullPage" loader="dots" color="blue"></loading>
+
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -28,6 +30,7 @@
             <button
               class="btn btn-warning"
               type="button"
+              :disabled="submitButtonDisabled"
               v-on:click="cancelOrder(order.id, order.id_type)"
             >cancel</button>
           </td>
@@ -39,15 +42,24 @@
 
 <script>
 import axios from "axios";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   name: "orders",
+  components: {
+    Loading
+  },
   data() {
     return {
       ordersList: [],
       exchangesList: [],
       exchange: null,
       errorText: "",
-      connection: null
+      connection: null,
+      submitButtonDisabled: false,
+      cancelSpinner: false,
+      isLoading: false,
+      fullPage: true
     };
   },
   mounted: async function() {
@@ -55,20 +67,26 @@ export default {
   },
   methods: {
     getOrders: async function() {
+      this.isLoading = false;
       axios
         .get("http://localhost:8080/orders")
         .then(response => {
           console.log(response);
           this.ordersList = response.data;
+          this.submitButtonDisabled = false;
         })
         .catch(error => {
           console.log("error:", error.response.data.message);
           this.errorText = error.response.data.message;
+          this.submitButtonDisabled = false;
         });
     },
     cancelOrder: async function(orderId, idType) {
+      this.isLoading = true;
+      console.log("cancelSpinner status:", this.cancelSpinner);
       console.log("orderId:", orderId);
       console.log("idType:", idType);
+      this.submitButtonDisabled = true;
       axios
         .delete(`http://localhost:8080/order/${orderId}/${idType}`)
         .then(response => {
@@ -78,6 +96,7 @@ export default {
         .catch(error => {
           console.log("error:", error.response.data.message);
           this.errorText = error.response.data.message;
+          this.submitButtonDisabled = false;
         });
     }
   }

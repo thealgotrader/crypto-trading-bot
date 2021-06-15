@@ -1,6 +1,6 @@
 <template>
   <main class="container mt-5">
-    <form>
+    <form v-on:submit="onSubmit">
       <div class="form-row">
         <div class="form-group col-md-3">
           <label for="inputProduct">Product</label>
@@ -67,9 +67,10 @@
         </div>
       </div>
       <div class="row justify-content-md-center mt-2">
-        <button type="submit" v-on:click="onSubmit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
+    <loading :active.sync="isLoading" :is-full-page="fullPage" loader="dots" color="blue"></loading>
     <div class="row justify-content-md-center mt-2">
       <label
         v-if="errorText.length > 0"
@@ -112,7 +113,12 @@
 
 <script>
 import axios from "axios";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
+  components: {
+    Loading
+  },
   name: "trade",
   data() {
     return {
@@ -130,7 +136,8 @@ export default {
       side: null,
       diff: null,
       strategy: null,
-      errorText: ""
+      errorText: "",
+      isLoading: false
     };
   },
   mounted: async function() {
@@ -170,7 +177,9 @@ export default {
           this.errorText = error.response.data.message;
         });
     },
-    onSubmit: async function() {
+    onSubmit: async function(e) {
+      console.log(e);
+      e.preventDefault();
       const data = JSON.stringify({
         symbol: this.product,
         price: this.price,
@@ -182,11 +191,14 @@ export default {
         strategy: this.strategy
       });
       console.log(data);
+      this.isLoading = true;
+      this.ordersList = [];
       axios
         .post("http://localhost:8080/order", data)
         .then(response => {
           console.log(response);
           this.ordersList = response.data;
+          this.isLoading = false;
         })
         .catch(error => {
           console.log("error:", error.response.data.message);

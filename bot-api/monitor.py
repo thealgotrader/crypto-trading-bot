@@ -113,8 +113,5 @@ async def get_reopen__orders():
 while True:
     loop = asyncio.get_event_loop()
     loop.run_until_complete(get_open_working_orders())
-    time.sleep(1)
     loop.run_until_complete(get_close_working_orders())
-    time.sleep(1)
     loop.run_until_complete(get_reopen__orders())
-    time.sleep(1)
