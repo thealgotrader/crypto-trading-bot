@@ -43,9 +43,18 @@ export EXCHANGE_NAME=coinbasepro # change this to exchange name
 export EXCHANGE_ENV=test # Start with test and later move to prod when comfortable
 export MONGODB_USERNAME=rootuser123 # change this
 export MONGODB_PASSWORD=password123 # change this
+export MONGODB_HOSTNAME=localhost # change this mongodb if you are docker
+export MONGODB_PORT=27020 # change this this 27017 if you are using docker
 ```
 
-## Running Program
+## Running Program using docker
+
+```sh
+cd crypto-bot-trading
+docker-compose up
+```
+
+## Running Program without docker
 
 ```sh
 cd crypto-bot-trading
@@ -58,7 +67,8 @@ docker-compose up
 - Check https://github.com/tradingalgobots/crypto-bot-trading/wiki/GRID-Trade for placing GRID Trade
 
 ## Monitor
-- Click Open Orders via ui 
+
+- Click Open Orders via ui
 
 or
 
@@ -67,6 +77,7 @@ or
 ```sh
 docker logs monitor
 ```
-## Issues
-Report to contact@algobots.net
 
+## Issues
+
+Report to contact@algobots.net
